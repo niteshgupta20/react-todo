@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import TodoContext from '../../context/TodoContext';
 
-function AddTodo({ addTodos }) {
+function AddTodo() {
+  const { dispatch } = useContext(TodoContext);
   const [todoText, setTodoText] = useState('');
+
+  function addTodo(todoText) {
+    dispatch({ type: 'add_todo', payload: { todoText } });
+  }
 
   return (
     <>
@@ -13,7 +19,7 @@ function AddTodo({ addTodos }) {
       />
       <button
         onClick={() => {
-          addTodos(todoText);
+          addTodo(todoText);
           setTodoText('');
         }}
       >
